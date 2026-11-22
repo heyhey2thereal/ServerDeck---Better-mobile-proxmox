@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#2f3b47">
+  <meta name="sd-client" content="1.0.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>ServerDeck</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.svg">
+  <link rel="stylesheet" href="/vendor/xterm/css/xterm.css">
+  <link rel="stylesheet" href="/style.css?v=1.0.0-9">
+</head>
+<body>
+  <header class="top">
+    <div class="host">
+      <span class="logo" aria-hidden="true"></span>
+      <span class="dot" id="dot"></span>
+      <span class="name"><strong id="hostname">…</strong> <span id="status">connexion…</span></span>
+    </div>
+  </header>
+
+  <div class="views">
+    <section class="view active" id="view-console">
+      <div class="target">
+        <button id="targetBtn" class="target-label">
+          <span id="targetLabel">console</span><span class="caret">▾</span>
+        </button>
+        <span class="target-hint" id="targetHint"></span>
+      </div>
+      <div class="term" id="term"></div>
+    </section>
+
+    <section class="view" id="view-nodes">
+      <div class="scroll" id="nodesList"><p class="empty">Chargement…</p></div>
+    </section>
+
+    <section class="view" id="view-guests">
+      <div class="scroll" id="guestsList"><p class="empty">Chargement…</p></div>
+    </section>
+
+    <section class="view" id="view-files">
+      <div class="files-bar">
+        <span class="hint" id="filesUsage"></span>
+        <button id="filePick" class="chip-primary" type="button" data-i18n="files.upload">Envoyer un fichier</button>
+      </div>
+      <div class="files-progress hidden" id="filesProgress"></div>
+      <div class="scroll" id="filesList"><p class="empty">Chargement…</p></div>
+      <input type="file" id="fileInput" multiple hidden>
+    </section>
+
+    <section class="view" id="view-settings">
+      <div class="scroll" id="settings"><p class="empty">Chargement…</p></div>
+    </section>
+  </div>
+
+  <nav class="keys" id="keys">
+    <button data-k="esc">esc</button>
+    <button data-k="tab">tab</button>
+    <button data-k="ctrl" class="mod">ctrl</button>
+    <button data-k="alt" class="mod">alt</button>
+    <button data-k="ctrlc" class="accent">^C</button>
+    <button data-k="ctrld" class="accent">^D</button>
+    <button data-k="left">←</button>
+    <button data-k="up">↑</button>
+    <button data-k="down">↓</button>
+    <button data-k="right">→</button>
+    <button data-k="home">home</button>
+    <button data-k="end">end</button>
+    <button data-k="pgup">pg↑</button>
+    <button data-k="pgdn">pg↓</button>
+    <button data-k="pipe">|</button>
+    <button data-k="tilde">~</button>
+    <button data-k="slash">/</button>
+    <button data-k="dash">-</button>
+    <button data-k="select" class="accent" data-i18n="key.select">sélection</button>
+    <button data-k="copy" class="accent" data-i18n="key.copy">copier</button>
+    <button data-k="paste" class="accent" data-i18n="key.paste">coller</button>
+  </nav>
+
+  <nav class="tabs" id="tabs">
+    <button data-view="console" class="active">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M7 10l3 2-3 2M12 15h5"/></svg>
+      <span data-i18n="tab.console">Console</span>
+    </button>
+    <button data-view="nodes">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v5H4zM4 14h16v5H4z"/></svg>
+      <span data-i18n="tab.nodes">Serveurs</span>
+    </button>
+    <button data-view="guests">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
+      <span data-i18n="tab.guests">Conteneurs</span>
+    </button>
+    <button data-view="files">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span data-i18n="tab.files">Fichiers</span>
+    </button>
+    <button data-view="settings">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14.2 3H9.8l-.4 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2l.4 2.7h4.4l.4-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/></svg>
+      <span data-i18n="tab.settings">Réglages</span>
+    </button>
+  </nav>
+
+  <div class="overlay hidden" id="overlay">
+    <div class="card">
+      <h2 id="overlayTitle">Connexion perdue</h2>
+      <p id="overlayText">La session continue de tourner sur le serveur.</p>
+      <button class="primary" id="overlayBtn" data-i18n="overlay.reconnect">Reconnecter</button>
+      <button class="primary ghost hidden" id="overlayAlt" style="margin-top:8px" data-i18n="overlay.local">Passer en session locale</button>
+    </div>
+  </div>
+
+  <section class="sheet hidden" id="targetSheet">
+    <div class="grab"></div>
+    <h3>Console</h3>
+    <div id="targetList"></div>
+    <div class="row">
+      <input id="newSession" placeholder="nouvelle session tmux" autocapitalize="none" spellcheck="false">
+      <button id="createSession">Créer</button>
+    </div>
+  </section>
+
+  <section class="sheet hidden" id="createSheet">
+    <div class="grab"></div>
+    <div id="createForm"><p class="empty">Chargement…</p></div>
+  </section>
+
+  <section class="sheet hidden" id="guestSheet">
+    <div class="grab"></div>
+    <div id="guestDetail"></div>
+  </section>
+
+  <section class="sheet hidden" id="sshSheet">
+    <div class="grab"></div>
+    <h3>Shell du nœud (SSH)</h3>
+    <div id="sshBody"><p class="empty">Chargement…</p></div>
+  </section>
+
+  <section class="sheet hidden" id="textSheet">
+    <div class="grab"></div>
+    <h3 data-i18n="text.title">Texte du terminal</h3>
+    <pre id="textArea" class="terminal-text"></pre>
+    <div class="row">
+      <button id="copyAll" data-i18n="text.copyAll">Tout copier</button>
+      <button id="closeText" data-i18n="text.close">Fermer</button>
+    </div>
+    <h3 style="margin-top:14px" data-i18n="text.pasteTitle">Coller dans le terminal</h3>
+    <textarea id="pasteBox" class="paste-box" rows="3" data-i18n-placeholder="text.pastePlaceholder"
+      placeholder="Appui long ici → Coller, puis Envoyer"></textarea>
+    <div class="row">
+      <button id="pasteSend" data-i18n="text.send">Envoyer</button>
+    </div>
+  </section>
+
+  <section class="sheet hidden" id="chartSheet">
+    <div class="grab"></div>
+    <div id="chartBody"></div>
+  </section>
+
+  <section class="sheet hidden" id="fileSheet">
+    <div class="grab"></div>
+    <div id="fileBody"></div>
+  </section>
+
+  <section class="sheet hidden" id="useSheet">
+    <div class="grab"></div>
+    <div id="useBody"></div>
+  </section>
+
+  <section class="sheet hidden" id="panelSheet">
+    <div class="grab"></div>
+    <div id="panelBody"></div>
+  </section>
+
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="/i18n.js?v=1.0.0-9"></script>
+  <script src="/vendor/xterm/lib/xterm.js"></script>
+  <script src="/vendor/addon-fit/lib/addon-fit.js"></script>
+  <script src="/app.js?v=1.0.0-9"></script>
+  <script src="/pve.js?v=1.0.0-9"></script>
+  <script src="/files.js?v=1.0.0-9"></script>
+</body>
+</html>

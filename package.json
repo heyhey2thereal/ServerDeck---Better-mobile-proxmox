@@ -1,0 +1,26 @@
+{
+  "name": "serverdeck",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Terminal web mobile pour serveur (Proxmox LXC/VM)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "setup": "node src/setup.js",
+    "test": "node --test tests/*.test.mjs && node tests/ticket-auth.mjs && node tests/smoke.mjs",
+    "setup:pve": "node src/setup-pve.js"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/xterm": "^5.5.0",
+    "express": "^4.21.2",
+    "node-pty": "^1.0.0",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "allowScripts": {
+    "node-pty@1.1.0": true
+  }
+}

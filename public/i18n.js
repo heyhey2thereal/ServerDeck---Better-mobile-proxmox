@@ -1,0 +1,233 @@
+(() => {
+  const dict = {
+    fr: {
+      'tab.console': 'Console', 'tab.nodes': 'Serveurs', 'tab.guests': 'Conteneurs', 'tab.files': 'Fichiers', 'tab.settings': 'Réglages',
+      'files.upload': 'Envoyer un fichier', 'files.usage': '%u utilisés · %f libres',
+      'files.empty': "Aucun fichier. Envoie un fichier depuis ton téléphone pour l'utiliser dans tes conteneurs.",
+      'files.loading': 'Chargement…', 'files.error': 'Impossible de lire les fichiers',
+      'files.network': 'réseau indisponible', 'files.aborted': 'envoi interrompu',
+      'files.uploadedOne': 'Fichier envoyé', 'files.uploaded': '%n fichiers envoyés',
+      'files.uploadFailed': 'Échec de %n : %e',
+      'files.size': 'Taille', 'files.modified': 'Modifié', 'files.download': 'Télécharger',
+      'files.use': 'Utiliser dans un conteneur', 'files.rename': 'Renommer', 'files.save': 'Enregistrer',
+      'files.delete': 'Supprimer', 'files.confirmDelete': 'Confirmer',
+      'files.deleted': '« %n » supprimé', 'files.renamed': 'Renommé en « %n »',
+      'files.linkTitle': 'Lien direct (signé, 24 h)',
+      'files.linkHint': "Le lien fonctionne sans connexion pendant %h h. À n'utiliser que sur ton réseau : il donne accès au fichier à qui l'a.",
+      'files.copyLink': 'Copier le lien', 'files.copy': 'Copier',
+      'files.dest': 'Dossier de destination', 'files.wget': 'wget', 'files.curl': 'curl',
+      'files.tool': 'Outil', 'files.guest': 'Conteneur', 'files.stopped': 'arrêté',
+      'files.noGuest': 'Proxmox non configuré : copie une commande et lance-la dans le conteneur ou la VM de ton choix.',
+      'files.pasteOnly': 'Coller la commande', 'files.exec': 'Coller et exécuter',
+      'files.pasteToast': 'Commande placée dans le terminal : appuie sur Entrée',
+      'files.execToast': 'Téléchargement lancé dans le conteneur',
+      'guests.search': 'Rechercher (nom, vmid, tag)…', 'guests.all': 'Tous',
+      'guests.runningOnly': 'En marche', 'guests.stoppedOnly': 'Arrêtés',
+      'guests.noMatch': 'Aucun invité ne correspond.',
+      'guest.snapshots': 'Instantanés', 'guest.disk': 'Disque',
+      'guest.backups': 'Sauvegardes', 'guest.clone': 'Cloner',
+      'guest.confirmKill': 'Couper ?',
+      'snap.none': 'Aucun instantané.', 'snap.name': "nom de l'instantané",
+      'snap.create': 'Créer', 'snap.rollback': 'Retour', 'snap.confirm': 'Confirmer ?',
+      'snap.created': 'Instantané « %n » créé', 'snap.deleted': 'Instantané supprimé',
+      'snap.rollingBack': 'Retour arrière lancé',
+      'snap.badName': 'Nom invalide (lettres, chiffres, - et _)',
+      'snap.hint': "Le retour arrière remplace l'état actuel de l'invité.",
+      'disk.none': 'Aucun disque détecté.', 'disk.resize': 'Agrandir',
+      'disk.hint': 'Indique une taille à ajouter (« +2G ») ou la taille finale (« 16G »).',
+      'disk.launched': 'Redimensionnement lancé',
+      'backup.none': 'Aucune sauvegarde pour cet invité.', 'backup.run': 'Sauvegarder',
+      'backup.launched': 'Sauvegarde lancée', 'backup.deleted': 'Sauvegarde supprimée',
+      'backup.hint': 'Le mode snapshot ne coupe pas le conteneur.',
+      'backup.noStorage': 'Aucun stockage avec le contenu « backup ».',
+      'clone.vmid': 'nouveau vmid', 'clone.hostname': 'hostname (optionnel)',
+      'clone.sameStorage': 'même stockage', 'clone.run': 'Cloner',
+      'clone.hint': 'Clone complet : le disque est copié, le vmid doit être libre.',
+      'clone.badVmid': 'vmid invalide', 'clone.launched': 'Clone %n lancé',
+      'nodes.tasks': 'Tâches', 'nodes.syslog': 'Journal',
+      'nodes.templates': 'Modèles', 'nodes.power': 'Nœud…',
+      'tasks.title': 'Tâches', 'tasks.none': 'Aucune tâche.',
+      'tasks.hint': 'Appuie sur une tâche pour voir son journal.',
+      'task.title': 'Tâche', 'task.state': 'État', 'task.exit': 'Résultat',
+      'task.refresh': 'Rafraîchir', 'task.stop': 'Arrêter', 'task.confirmStop': 'Arrêter ?',
+      'task.stopped': 'Tâche arrêtée', 'task.noLog': 'Pas encore de journal.',
+      'task.done': 'terminé',
+      'node.syslog': 'Journal du nœud', 'node.noLog': 'Journal vide.',
+      'node.power': 'Nœud',
+      'node.powerWarn': 'Ces actions coupent tous les invités du nœud. Deux appuis pour confirmer.',
+      'node.reboot': 'Redémarrer', 'node.shutdown': 'Arrêter le nœud',
+      'node.confirm': 'Confirmer ?', 'node.rebooting': 'Redémarrage du nœud lancé',
+      'node.shuttingDown': 'Arrêt du nœud lancé',
+      'tpl.search': 'Rechercher un modèle…', 'tpl.download': 'Télécharger',
+      'tpl.installed': 'Installés', 'tpl.none': 'Aucun modèle.',
+      'tpl.noStorage': 'Aucun stockage ne peut recevoir des modèles (vztmpl).',
+      'tpl.launched': 'Téléchargement du modèle lancé',
+      'key.select': 'sélection', 'key.copy': 'copier', 'key.paste': 'coller',
+      'overlay.reconnect': 'Reconnecter', 'overlay.local': 'Passer en session locale', 'overlay.back': 'Revenir à la session locale',
+      'text.title': 'Texte du terminal', 'text.copyAll': 'Tout copier', 'text.close': 'Fermer',
+      'text.pasteTitle': 'Coller dans le terminal', 'text.pastePlaceholder': 'Appui long ici → Coller, puis Envoyer',
+      'text.send': 'Envoyer',
+      'settings.sessions': 'Sessions', 'settings.active': 'active(s)', 'settings.none': 'Aucune session.',
+      'settings.revokeHint': 'Révoquer une session la déconnecte immédiatement, y compris sur un autre appareil.',
+      'settings.disconnect': 'Déconnecter', 'settings.connection': 'Connexion',
+      'settings.user': 'Utilisateur', 'settings.proxmox': 'Proxmox', 'settings.pveShell': 'Shell PVE (SSH)',
+      'settings.configured': 'configuré', 'settings.toConfigure': 'à configurer', 'settings.server': 'Serveur',
+      'settings.version': 'Version', 'settings.client': 'Client', 'settings.logout': 'Se déconnecter', 'settings.display': 'Affichage',
+      'settings.fontSize': 'Taille du texte', 'settings.fullscreen': 'Plein écran', 'settings.container': 'Conteneur',
+      'settings.load': 'Charge', 'settings.memory': 'Mémoire', 'settings.disk': 'Disque', 'settings.uptime': 'Uptime',
+      'settings.language': 'Langue', 'settings.save': 'Enregistrer', 'settings.pveHost': 'IP du nœud Proxmox',
+      'guest.boot': 'Démarrer au boot', 'guest.start': 'Démarrer', 'guest.stop': 'Arrêter', 'guest.kill': 'Couper',
+      'guest.reboot': 'Redémarrer', 'guest.create': 'Nouveau conteneur', 'guest.terminal': 'Terminal', 'guest.node': 'Nœud', 'guest.state': 'État',
+      'guest.running': 'en marche', 'guest.stopped': 'arrêté', 'guest.cores': 'Cœurs', 'guest.ram': 'RAM allouée',
+      'guest.system': 'Système', 'guest.network': 'Réseau', 'guest.processes': 'Processus',
+      'guest.options': 'Options', 'guest.startup': 'Ordre de démarrage', 'guest.arch': 'Architecture',
+      'guest.tty': 'TTY', 'guest.cmode': 'Mode console', 'guest.devConsole': '/dev/console',
+      'guest.description': 'Description', 'guest.privileges': 'Les actions demandent le privilège VM.PowerMgmt.',
+      'nodes.online': 'en ligne', 'nodes.offline': 'hors ligne', 'nodes.uptime': 'Uptime', 'nodes.guests': 'Invités',
+      'nodes.version': 'Version', 'nodes.chartHint': "Touche la courbe pour l'agrandir.",
+      'guests.count': 'LXC · %q VM · %r en marche', 'guests.loading': 'Chargement…', 'guests.empty': 'Aucun conteneur ni machine virtuelle.',
+      'chart.value': 'Touche la courbe pour une valeur', 'chart.hour': 'Heure', 'chart.day': 'Jour',
+      'chart.week': 'Semaine', 'chart.month': 'Mois',
+      'toast.copied': 'Copié (%n caractères)', 'toast.copyRefused': 'Presse-papier refusé par le navigateur',
+      'toast.selectFirst': 'Sélectionne du texte (appui long) puis « copier »',
+      'toast.pasted': 'Collé', 'toast.pasteRefused': 'Presse-papier refusé : autorise le presse-papier pour ce site',
+      'toast.sent': 'Envoyé au terminal', 'toast.nothing': 'Aucune modification',
+      'status.connecting': 'connexion…', 'status.connected': 'connecté', 'status.offline': 'hors ligne',
+      'status.ended': 'terminée', 'status.retry': 'reconnexion dans %s s',
+    },
+    en: {
+      'tab.console': 'Console', 'tab.nodes': 'Hosts', 'tab.guests': 'Containers', 'tab.files': 'Files', 'tab.settings': 'Settings',
+      'files.upload': 'Upload a file', 'files.usage': '%u used · %f free',
+      'files.empty': 'No file yet. Upload one from your phone to use it in your containers.',
+      'files.loading': 'Loading…', 'files.error': 'Cannot read the files',
+      'files.network': 'network unavailable', 'files.aborted': 'upload aborted',
+      'files.uploadedOne': 'File uploaded', 'files.uploaded': '%n files uploaded',
+      'files.uploadFailed': '%n failed: %e',
+      'files.size': 'Size', 'files.modified': 'Modified', 'files.download': 'Download',
+      'files.use': 'Use in a container', 'files.rename': 'Rename', 'files.save': 'Save',
+      'files.delete': 'Delete', 'files.confirmDelete': 'Confirm',
+      'files.deleted': '“%n” deleted', 'files.renamed': 'Renamed to “%n”',
+      'files.linkTitle': 'Direct link (signed, 24 h)',
+      'files.linkHint': 'The link works without signing in for %h h. Use it only on your own network: anyone holding it can fetch the file.',
+      'files.copyLink': 'Copy link', 'files.copy': 'Copy',
+      'files.dest': 'Destination folder', 'files.wget': 'wget', 'files.curl': 'curl',
+      'files.tool': 'Tool', 'files.guest': 'Container', 'files.stopped': 'stopped',
+      'files.noGuest': 'Proxmox is not configured: copy a command and run it in any container or VM.',
+      'files.pasteOnly': 'Paste the command', 'files.exec': 'Paste and run',
+      'files.pasteToast': 'Command placed in the terminal: press Enter',
+      'files.execToast': 'Download started in the container',
+      'guests.search': 'Search (name, vmid, tag)…', 'guests.all': 'All',
+      'guests.runningOnly': 'Running', 'guests.stoppedOnly': 'Stopped',
+      'guests.noMatch': 'No guest matches.',
+      'guest.snapshots': 'Snapshots', 'guest.disk': 'Disk',
+      'guest.backups': 'Backups', 'guest.clone': 'Clone',
+      'guest.confirmKill': 'Stop it?',
+      'snap.none': 'No snapshot.', 'snap.name': 'snapshot name',
+      'snap.create': 'Create', 'snap.rollback': 'Roll back', 'snap.confirm': 'Confirm?',
+      'snap.created': 'Snapshot “%n” created', 'snap.deleted': 'Snapshot deleted',
+      'snap.rollingBack': 'Rollback started',
+      'snap.badName': 'Invalid name (letters, digits, - and _)',
+      'snap.hint': 'Rolling back replaces the current state of the guest.',
+      'disk.none': 'No disk detected.', 'disk.resize': 'Grow',
+      'disk.hint': 'Give a size to add (“+2G”) or the final size (“16G”).',
+      'disk.launched': 'Resize started',
+      'backup.none': 'No backup for this guest.', 'backup.run': 'Back up',
+      'backup.launched': 'Backup started', 'backup.deleted': 'Backup deleted',
+      'backup.hint': 'Snapshot mode does not stop the container.',
+      'backup.noStorage': 'No storage with “backup” content.',
+      'clone.vmid': 'new vmid', 'clone.hostname': 'hostname (optional)',
+      'clone.sameStorage': 'same storage', 'clone.run': 'Clone',
+      'clone.hint': 'Full clone: the disk is copied, the vmid must be free.',
+      'clone.badVmid': 'invalid vmid', 'clone.launched': 'Clone %n started',
+      'nodes.tasks': 'Tasks', 'nodes.syslog': 'Log',
+      'nodes.templates': 'Templates', 'nodes.power': 'Node…',
+      'tasks.title': 'Tasks', 'tasks.none': 'No task.',
+      'tasks.hint': 'Tap a task to see its log.',
+      'task.title': 'Task', 'task.state': 'State', 'task.exit': 'Result',
+      'task.refresh': 'Refresh', 'task.stop': 'Stop', 'task.confirmStop': 'Stop it?',
+      'task.stopped': 'Task stopped', 'task.noLog': 'No log yet.',
+      'task.done': 'done',
+      'node.syslog': 'Node log', 'node.noLog': 'Empty log.',
+      'node.power': 'Node',
+      'node.powerWarn': 'These actions stop every guest on the node. Two taps to confirm.',
+      'node.reboot': 'Reboot', 'node.shutdown': 'Shut down the node',
+      'node.confirm': 'Confirm?', 'node.rebooting': 'Node reboot started',
+      'node.shuttingDown': 'Node shutdown started',
+      'tpl.search': 'Search a template…', 'tpl.download': 'Download',
+      'tpl.installed': 'Installed', 'tpl.none': 'No template.',
+      'tpl.noStorage': 'No storage can hold templates (vztmpl).',
+      'tpl.launched': 'Template download started',
+      'key.select': 'select', 'key.copy': 'copy', 'key.paste': 'paste',
+      'overlay.reconnect': 'Reconnect', 'overlay.local': 'Switch to local session', 'overlay.back': 'Back to local session',
+      'text.title': 'Terminal text', 'text.copyAll': 'Copy all', 'text.close': 'Close',
+      'text.pasteTitle': 'Paste into the terminal', 'text.pastePlaceholder': 'Long press here → Paste, then Send',
+      'text.send': 'Send',
+      'settings.sessions': 'Sessions', 'settings.active': 'active', 'settings.none': 'No session.',
+      'settings.revokeHint': 'Revoking a session signs it out immediately, including on another device.',
+      'settings.disconnect': 'Sign out', 'settings.connection': 'Connection',
+      'settings.user': 'User', 'settings.proxmox': 'Proxmox', 'settings.pveShell': 'PVE shell (SSH)',
+      'settings.configured': 'configured', 'settings.toConfigure': 'not configured', 'settings.server': 'Server',
+      'settings.version': 'Version', 'settings.client': 'Client', 'settings.logout': 'Sign out', 'settings.display': 'Display',
+      'settings.fontSize': 'Text size', 'settings.fullscreen': 'Fullscreen', 'settings.container': 'Container',
+      'settings.load': 'Load', 'settings.memory': 'Memory', 'settings.disk': 'Disk', 'settings.uptime': 'Uptime',
+      'settings.language': 'Language', 'settings.save': 'Save', 'settings.pveHost': 'Proxmox node IP',
+      'guest.boot': 'Start at boot', 'guest.start': 'Start', 'guest.stop': 'Shutdown', 'guest.kill': 'Stop',
+      'guest.reboot': 'Reboot', 'guest.create': 'New container', 'guest.terminal': 'Terminal', 'guest.node': 'Node', 'guest.state': 'State',
+      'guest.running': 'running', 'guest.stopped': 'stopped', 'guest.cores': 'Cores', 'guest.ram': 'Allocated RAM',
+      'guest.system': 'System', 'guest.network': 'Network', 'guest.processes': 'Processes',
+      'guest.options': 'Options', 'guest.startup': 'Start order', 'guest.arch': 'Architecture',
+      'guest.tty': 'TTY', 'guest.cmode': 'Console mode', 'guest.devConsole': '/dev/console',
+      'guest.description': 'Description', 'guest.privileges': 'Actions require the VM.PowerMgmt privilege.',
+      'nodes.online': 'online', 'nodes.offline': 'offline', 'nodes.uptime': 'Uptime', 'nodes.guests': 'Guests',
+      'nodes.version': 'Version', 'nodes.chartHint': 'Tap the curve to enlarge it.',
+      'guests.count': '%q LXC · %r VM · %r running', 'guests.loading': 'Loading…', 'guests.empty': 'No container or VM.',
+      'chart.value': 'Tap the curve for a value', 'chart.hour': 'Hour', 'chart.day': 'Day',
+      'chart.week': 'Week', 'chart.month': 'Month',
+      'toast.copied': 'Copied (%n characters)', 'toast.copyRefused': 'Clipboard refused by the browser',
+      'toast.selectFirst': 'Select text (long press) then “copy”',
+      'toast.pasted': 'Pasted', 'toast.pasteRefused': 'Clipboard refused: allow clipboard access for this site',
+      'toast.sent': 'Sent to terminal', 'toast.nothing': 'No change',
+      'status.connecting': 'connecting…', 'status.connected': 'connected', 'status.offline': 'offline',
+      'status.ended': 'ended', 'status.retry': 'reconnecting in %s s',
+    },
+  }
+
+  const langParam = new URLSearchParams(location.search).get('lang')
+  let lang = (langParam === 'fr' || langParam === 'en') ? langParam
+    : (localStorage.getItem('sd.lang')
+      || ((navigator.language || 'fr').toLowerCase().startsWith('en') ? 'en' : 'fr'))
+  if (langParam === 'fr' || langParam === 'en') localStorage.setItem('sd.lang', langParam)
+
+  function t(key, vars) {
+    let text = (dict[lang] && dict[lang][key]) || dict.fr[key] || key
+    if (vars) {
+      for (const [k, v] of Object.entries(vars)) text = text.replaceAll(`%${k}`, String(v))
+    }
+    return text
+  }
+
+  function apply(root) {
+    const scope = root || document
+    for (const el of scope.querySelectorAll('[data-i18n]')) el.textContent = t(el.dataset.i18n)
+    for (const el of scope.querySelectorAll('[data-i18n-placeholder]')) el.placeholder = t(el.dataset.i18nPlaceholder)
+  }
+
+  function setLang(next) {
+    lang = next === 'en' ? 'en' : 'fr'
+    localStorage.setItem('sd.lang', lang)
+    document.documentElement.lang = lang
+    apply()
+    if (window.SD?.renderSettings && document.getElementById('view-settings')?.classList.contains('active')) {
+      window.SD.renderSettings()
+    }
+  }
+
+  window.t = t
+  window.setLang = setLang
+  window.getLang = () => lang
+  window.applyI18n = apply
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => apply())
+  else apply()
+  document.documentElement.lang = lang
+})()

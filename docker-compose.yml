@@ -1,0 +1,9 @@
+services:
+  serverdeck:
+    build: .
+    container_name: serverdeck
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./data:/data
